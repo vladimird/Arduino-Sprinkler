@@ -18,7 +18,14 @@
 #include "RTClib.h" // https://github.com/adafruit/RTClib
 RTC_DS1307 RTC;
 DateTime now;
-
+ // Addition for LCD I2c
+ #include <LCD.h>
+ #include <Wire.h>
+ #include <LiquidCrystal_I2C.h>
+ #define BACKLIGHT_PIN 3
+ LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7); // Set the LCD I2C address 
+ //LiquidCrystal_I2C lcd(0x27, BACKLIGHT_PIN, POSITIVE);// Set the LCD I2C address 
+  
 // Ethernet settings
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 byte ip[] = { 192,168,1,200 };
@@ -587,6 +594,11 @@ void setup() {
   water(off);
 Serial.begin(9600);
 Serial.println("*RESET*");
+
+// LCD Init
+lcd.begin(16,2); // initialize the lcd 
+lcd.setBacklightPin ( 3, POSITIVE );
+lcd.backlight (); delay (1000); lcd.noBacklight();
 
   // Setup the real time clock
   Wire.begin();
