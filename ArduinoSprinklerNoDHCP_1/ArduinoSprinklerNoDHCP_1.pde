@@ -25,6 +25,16 @@ DateTime now;
  #define BACKLIGHT_PIN 3
  LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7); // Set the LCD I2C address 
  //LiquidCrystal_I2C lcd(0x27, BACKLIGHT_PIN, POSITIVE);// Set the LCD I2C address 
+ 
+ // Addition for ir receiver
+ 
+ #include <IRremote.h>
+
+int RECV_PIN = 3;
+
+IRrecv irrecv(RECV_PIN);
+
+decode_results results;
   
 // Ethernet settings
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
@@ -600,6 +610,9 @@ lcd.begin(16,2); // initialize the lcd
 lcd.setBacklightPin ( 3, POSITIVE );
 lcd.backlight (); delay (1000); lcd.noBacklight();
 
+// Ir receiver init
+ irrecv.enableIRIn(); // Start the receiver
+
 
 
   // Switch on the backlight
@@ -647,6 +660,14 @@ void loop() {
  // }
  // prevState = state;
   Serial.println("dhcp done started");
+  
+  // ir reciver
+  
+  if (irrecv.decode(&results)) {
+    Serial.println(results.value, HEX);
+    irrecv.resume(); // Receive the next value
+  }
+  
   
   // We only need to grab the time at most every second.
   // We also need to catch when millis() rolls over back to 0 (about every 50 days)
