@@ -600,6 +600,20 @@ lcd.begin(16,2); // initialize the lcd
 lcd.setBacklightPin ( 3, POSITIVE );
 lcd.backlight (); delay (1000); lcd.noBacklight();
 
+
+
+  // Switch on the backlight
+  pinMode ( BACKLIGHT_PIN, OUTPUT );
+  digitalWrite ( BACKLIGHT_PIN, HIGH );
+  
+  lcd.begin(16,2);               // initialize the lcd 
+
+  lcd.home ();                   // go home
+  lcd.print("Hello, ARDUINO ");  
+  lcd.setCursor ( 0, 1 );        // go to the next line
+  lcd.print (" FORUM - fm   ");
+  delay ( 1000 );
+
   // Setup the real time clock
   Wire.begin();
   RTC.begin();
