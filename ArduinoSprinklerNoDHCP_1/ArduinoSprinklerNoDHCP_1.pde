@@ -30,7 +30,7 @@ DateTime now;
  
  #include <IRremote.h>
 
-int RECV_PIN = 3;
+int RECV_PIN = 05;
 
 IRrecv irrecv(RECV_PIN);
 
@@ -659,7 +659,7 @@ void loop() {
   //   }
  // }
  // prevState = state;
-  Serial.println("dhcp done started");
+ // Serial.println("dhcp done started");
   
   // ir reciver
   
