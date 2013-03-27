@@ -248,6 +248,7 @@ void e_printHelp() {
 void e_printHelpString(int i) { // Print PROGMEM string to ethernet port
   loadHelpString(i);
   client.print(stringBuffer);
+  client.println();
 }
 void e_printTime() {
   // Month
